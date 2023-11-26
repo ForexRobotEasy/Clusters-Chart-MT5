@@ -1,0 +1,104 @@
+
+//+------------------------------------------------------------------+
+//| Clusters Chart MT5                                              |
+//|                                                                  |
+//| Developer's site: forexroboteasy.com                             |
+//| Development by: Forex Robot Easy Team                            |
+//+------------------------------------------------------------------+
+
+//--- Indicator input parameters
+input ENUM_CLUSTER_TYPE ClusterType = CLUSTERS; // Choose between volume clusters and volume profiles
+input int ClusterStep = 10; // Cluster step
+input int TickHistorySize = 1000; // Tick history size
+input ENUM_TIMEFRAMES AssociatedTimeframe = PERIOD_CURRENT; // Associated timeframe
+input ENUM_VOLUME_TYPE VolumeType = TICK_VOLUME; // Volume types
+
+//--- Indicator buffers
+double VolumeBuffer[];
+double RangeVolumeBuffer[];
+double CumulativeVolumeBuffer[];
+double BidVolumeBuffer[];
+double AskVolumeBuffer[];
+double TimeIntervalVolumeBuffer[];
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   //--- Indicator buffers mapping
+   SetIndexBuffer(0, VolumeBuffer, INDICATOR_DATA);
+   SetIndexBuffer(1, RangeVolumeBuffer, INDICATOR_DATA);
+   SetIndexBuffer(2, CumulativeVolumeBuffer, INDICATOR_DATA);
+   SetIndexBuffer(3, BidVolumeBuffer, INDICATOR_DATA);
+   SetIndexBuffer(4, AskVolumeBuffer, INDICATOR_DATA);
+   SetIndexBuffer(5, TimeIntervalVolumeBuffer, INDICATOR_DATA);
+
+   //--- Indicator digits
+   IndicatorSetInteger(INDICATOR_DIGITS, _Digits);
+
+   //--- Indicator short name
+   string indicatorName = 'Clusters Chart MT5';
+   IndicatorSetString(INDICATOR_SHORTNAME, indicatorName);
+
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total, const int prev_calculated, const datetime &time[], const double &open[], const double &high[], const double &low[], const double &close[], const long &tick_volume[], const long &volume[], const int &spread[])
+{
+   //--- Calculate volume clusters or volume profiles based on chosen ClusterType
+   switch(ClusterType)
+   {
+      case CLUSTERS:
+         CalculateVolumeClusters(rates_total, prev_calculated, time, open, high, low, close, tick_volume, volume, spread);
+         break;
+      case PROFILES:
+         CalculateVolumeProfiles(rates_total, prev_calculated, time, open, high, low, close, tick_volume, volume, spread);
+         break;
+   }
+
+   return(rates_total);
+}
+
+//+------------------------------------------------------------------+
+//| Function to calculate volume clusters                             |
+//+------------------------------------------------------------------+
+void CalculateVolumeClusters(const int rates_total, const int prev_calculated, const datetime &time[], const double &open[], const double &high[], const double &low[], const double &close[], const long &tick_volume[], const long &volume[], const int &spread[])
+{
+   //--- Calculate volume clusters logic here
+   // ...
+
+   //--- Assign calculated values to indicator buffers
+   for(int i = prev_calculated; i < rates_total; i++)
+   {
+      VolumeBuffer[i] = calculated_value;
+      RangeVolumeBuffer[i] = calculated_value;
+      CumulativeVolumeBuffer[i] = calculated_value;
+      BidVolumeBuffer[i] = calculated_value;
+      AskVolumeBuffer[i] = calculated_value;
+      TimeIntervalVolumeBuffer[i] = calculated_value;
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Function to calculate volume profiles                             |
+//+------------------------------------------------------------------+
+void CalculateVolumeProfiles(const int rates_total, const int prev_calculated, const datetime &time[], const double &open[], const double &high[], const double &low[], const double &close[], const long &tick_volume[], const long &volume[], const int &spread[])
+{
+   //--- Calculate volume profiles logic here
+   // ...
+
+   //--- Assign calculated values to indicator buffers
+   for(int i = prev_calculated; i < rates_total; i++)
+   {
+      VolumeBuffer[i] = calculated_value;
+      RangeVolumeBuffer[i] = calculated_value;
+      CumulativeVolumeBuffer[i] = calculated_value;
+      BidVolumeBuffer[i] = calculated_value;
+      AskVolumeBuffer[i] = calculated_value;
+      TimeIntervalVolumeBuffer[i] = calculated_value;
+   }
+}
